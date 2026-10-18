@@ -2,6 +2,7 @@ from telegram.ext import Application, CommandHandler
 from config import TELEGRAM_BOT_TOKEN
 from handlers.commands import start, price, long_cmd, short_cmd, positions, status
 
+
 def main():
     app = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
 
@@ -14,6 +15,7 @@ def main():
 
     print("Bot started...")
     app.run_polling()
+
 
 if __name__ == "__main__":
     main()
