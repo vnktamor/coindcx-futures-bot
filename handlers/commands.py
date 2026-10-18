@@ -1,11 +1,9 @@
-from telegram import Update
+Pythonfrom telegram import Update
 from telegram.ext import ContextTypes
-
 from config import ALLOWED_USER_ID, PAIR_MAP, DEFAULT_LEVERAGE, MAX_LEVERAGE, PAPER_TRADING
 from exchange.futures_client import CoinDCXFutures
 
 client = CoinDCXFutures()
-
 
 def restricted(func):
     async def wrapper(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -13,9 +11,7 @@ def restricted(func):
             await update.message.reply_text("Unauthorized.")
             return
         return await func(update, context)
-
     return wrapper
-
 
 @restricted
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -30,7 +26,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"/short BTC 0.01 5\n"
         f"/status"
     )
-
 
 @restricted
 async def price(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -59,16 +54,13 @@ async def price(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception as e:
         await update.message.reply_text(f"Error: {e}")
 
-
 @restricted
 async def long_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await _place_order(update, context, side="buy")
 
-
 @restricted
 async def short_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await _place_order(update, context, side="sell")
-
 
 async def _place_order(update: Update, context: ContextTypes.DEFAULT_TYPE, side: str):
     if len(context.args) < 2:
@@ -94,7 +86,6 @@ async def _place_order(update: Update, context: ContextTypes.DEFAULT_TYPE, side:
 
     result = client.create_order(pair, side, qty, leverage)
     await update.message.reply_text(str(result))
-
 
 @restricted
 async def positions(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -122,7 +113,6 @@ async def positions(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(text or "No open positions", parse_mode="Markdown")
     except Exception as e:
         await update.message.reply_text(f"Error: {e}")
-
 
 @restricted
 async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
