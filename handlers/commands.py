@@ -1,4 +1,4 @@
-Pythonfrom telegram import Update
+from telegram import Update
 from telegram.ext import ContextTypes
 from config import ALLOWED_USER_ID, PAIR_MAP, DEFAULT_LEVERAGE, MAX_LEVERAGE, PAPER_TRADING
 from exchange.futures_client import CoinDCXFutures
