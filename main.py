@@ -1,4 +1,4 @@
-Pythonfrom telegram.ext import Application, CommandHandler
+from telegram.ext import Application, CommandHandler
 from config import TELEGRAM_BOT_TOKEN
 from handlers.commands import start, price, long_cmd, short_cmd, positions, status
 
